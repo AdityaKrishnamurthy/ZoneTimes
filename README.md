@@ -21,6 +21,15 @@
   - CET / CEST – Central European Time
   - KST – Korea Standard Time
   - AEST – Australian Eastern Standard Time
+  - MST / MDT – Mountain Time
+  - BRT – Brasília Time
+  - EET / EEST – Eastern European Time
+  - AST – Arabian Standard Time
+  - GST – Gulf Standard Time
+  - NZST / NZDT – New Zealand Time
+  - SAST – South Africa Standard Time
+  - AST / ADT – Atlantic Time (Canada)
+
 - 🌗 Light/Dark mode toggle (respects system settings)
 - 📱 Fully responsive (2-column layout on mobile)
 - 🎨 Stylish theme inspired by modern palettes
@@ -34,7 +43,6 @@
 - CSS3 (custom theme + responsive layout)
 - JavaScript (Date API + Intl API for time zones)
 
-
 ## ✨ Author
 
 Made with 💖 by [**CrescendoFluffy**](https://github.com/CrescendoFluffy)
@@ -42,4 +50,3 @@ Made with 💖 by [**CrescendoFluffy**](https://github.com/CrescendoFluffy)
 ## 📄 License
 
 This project is open-source and available under the [MIT License](https://opensource.org/license/mit).
-
