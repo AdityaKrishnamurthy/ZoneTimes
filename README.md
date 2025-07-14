@@ -1,4 +1,4 @@
-# 🕒 ZoneTimes
+# ZoneTimes
 
 **ZoneTimes** is a sleek, responsive world clock web app that displays real-time clocks for major global time zones — including your local time — all in a clean, mobile-friendly layout with dark/light theme toggle support.
 
