@@ -1,0 +1,115 @@
+:root {
+  --bg: #003b46; /* Warm Charcoal looks good too: #1e1e1e  */
+  --text: #eae2b7;
+  --clock-bg: #1e1e1e;
+  --accent: #d62828;
+  --highlight: #f77f00;
+  --light-bg: #fefae0;
+  --light-text: #003049;
+  --light-clock: #ffffff;
+}
+
+.logo-icon {
+  height: 1.4em;
+  vertical-align: middle;
+  margin-right: 0.5em;
+}
+
+body.light {
+  --bg: var(--light-bg);
+  --text: var(--light-text);
+  --clock-bg: var(--light-clock);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  padding: 20px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+#toggleTheme {
+  font-size: 1.2rem;
+  padding: 5px 10px;
+  background: var(--clock-bg);
+  color: var(--text);
+  border: 2px solid var(--highlight);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#toggleTheme:hover {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.clocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 10px;
+}
+
+.clock {
+  background: var(--clock-bg);
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 1.5rem;
+  box-shadow: 0 0 10px #00000033;
+  border: 1px solid var(--highlight);
+  transition: background 0.3s ease;
+}
+
+.zone {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .clocks {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .clocks {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+  color: var(--text-color);
+  opacity: 0.7;
+  margin-top: 2em;
+}
+
+.footer a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
