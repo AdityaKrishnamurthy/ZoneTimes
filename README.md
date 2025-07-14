@@ -2,7 +2,7 @@
 
 **ZoneTimes** is a sleek, responsive world clock web app that displays real-time clocks for major global time zones — including your local time — all in a clean, mobile-friendly layout with dark/light theme toggle support.
 
-🔗 **Live**: [https://zonetimes.netlify.app/](https://zonetimes.netlify.app/)
+🔗 **Live**: [https://crescendofluffy.github.io/ZoneTimes/](https://crescendofluffy.github.io/ZoneTimes/)
 
 ---
 
