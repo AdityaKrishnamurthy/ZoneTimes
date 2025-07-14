@@ -7,13 +7,18 @@ const clocks = [
   { zone: "America/Los_Angeles", label: "PST / PDT – Pacific Time" },
   { zone: "America/New_York", label: "EST / EDT – Eastern Time" },
   { zone: "America/Chicago", label: "CST / CDT – Central Time" },
-  { zone: "Asia/Shanghai", label: "CST – China Standard Time" },
   { zone: "Europe/Berlin", label: "CET / CEST – Central European Time" },
+  { zone: "Europe/Bucharest", label: "EET / EEST – Eastern European Time" },
+  { zone: "Asia/Shanghai", label: "CST – China Standard Time" },
   { zone: "Asia/Seoul", label: "KST – Korea Standard Time" },
-  {
-    zone: "Australia/Sydney",
-    label: "AEST – Australian Eastern Standard Time",
-  },
+  { zone: "Australia/Sydney", label: "AEST – Australian Eastern Standard Time" },
+  { zone: "America/Denver", label: "MST / MDT – Mountain Time" },
+  { zone: "America/Sao_Paulo", label: "BRT – Brasília Time" },
+  { zone: "Asia/Riyadh", label: "AST – Arabian Standard Time" },
+  { zone: "Asia/Dubai", label: "GST – Gulf Standard Time" },
+  { zone: "Pacific/Auckland", label: "NZST / NZDT – New Zealand Time" },
+  { zone: "Africa/Johannesburg", label: "SAST – South Africa Standard Time" },
+  { zone: "America/Halifax", label: "AST / ADT – Atlantic Time (Canada)" }
 ];
 
 const container = document.getElementById("clockContainer");
