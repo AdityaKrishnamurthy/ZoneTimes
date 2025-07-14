@@ -4,11 +4,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZoneTimes</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>ZoneTimes – Live World Clock in Your Timezone</title>
+
+  <!-- ✅ SEO Meta Tags -->
+  <meta name="description"
+    content="ZoneTimes is a responsive web app showing live clocks for 20 major world time zones, including your local time.">
+  <meta name="author" content="CrescendoFluffy">
+  <meta name="keywords"
+    content="world clock, time zones, zone times, UTC, IST, PST, responsive clock, JavaScript, light dark theme">
+  <meta name="robots" content="index, follow">
+
+  <!-- ✅ Social Preview Meta -->
+  <meta property="og:title" content="ZoneTimes – Live World Clock in Your Timezone" />
+  <meta property="og:description"
+    content="Track 20 world time zones in real time with a beautiful, responsive UI and theme toggle." />
+  <meta property="og:image" content="https://crescendofluffy.github.io/ZoneTimes/media/favicon.png" />
+  <meta property="og:url" content="https://crescendofluffy.github.io/ZoneTimes/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- ✅ Favicon -->
   <link rel="icon" type="image/png" href="media/favicon.png" sizes="512x512">
   <link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
 
+  <!-- ✅ Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
@@ -20,14 +39,16 @@
     <button id="toggleTheme" title="Toggle theme">🌙</button>
   </header>
 
-  <div class="clocks" id="clockContainer"></div>
+  <main>
+    <h2 class="visually-hidden">Live world clocks in 20 major time zones</h2>
+    <div class="clocks" id="clockContainer"></div>
+  </main>
 
   <script src="script.js"></script>
 
   <footer class="footer">
     Created by <a href="https://github.com/CrescendoFluffy/" target="_blank" rel="noopener">CrescendoFluffy</a>
   </footer>
-
 </body>
 
 </html>
