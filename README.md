@@ -45,10 +45,11 @@
 
 ## ✨ Author
 
-Made with 💖 by [**CrescendoFluffy**](https://github.com/CrescendoFluffy)
+Made with 💖 by [**AdityaKrishnamurthy**](https://github.com/AdityaKrishnamurthy)
 
 ## 📄 License
 
 This project is open-source and available under the [MIT License](https://opensource.org/license/mit).
+
 
 
