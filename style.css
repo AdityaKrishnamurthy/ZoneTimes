@@ -64,39 +64,24 @@ h1 {
 
 .clocks {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Always 2 columns minimum */
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
   max-width: 1200px;
   margin: auto;
   padding: 10px;
 }
 
-.clock {
-  background: var(--clock-bg);
-  border-radius: 10px;
-  padding: 20px;
-  font-size: 1.5rem;
-  box-shadow: 0 0 10px #00000033;
-  border: 1px solid var(--highlight);
-  transition: background 0.3s ease;
-}
-
-.zone {
-  margin-top: 10px;
-  font-size: 0.9rem;
-  color: var(--text);
-  line-height: 1.2;
-}
-
 @media (min-width: 768px) {
   .clocks {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 }
 
 @media (min-width: 1024px) {
   .clocks {
     grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
   }
 }
 
