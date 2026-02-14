@@ -4,29 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZoneTimes – Live World Clock in Your Timezone</title>
-
-  <!-- ✅ SEO Meta Tags -->
+  <title>ZoneTimes – Live World Clock & Timezone Converter</title>
   <meta name="description"
-    content="ZoneTimes is a responsive web app showing live clocks for 20 major world time zones, including your local time.">
-  <meta name="author" content="CrescendoFluffy">
+    content="ZoneTimes is a responsive web app showing live clocks for world time zones and a built-in timezone converter.">
+  <meta name="author" content="AdityaKrishnamurthy">
   <meta name="keywords"
-    content="world clock, time zones, zone times, UTC, IST, PST, responsive clock, JavaScript, light dark theme">
+    content="world clock, time zones, timezone converter, UTC, IST, PST, responsive clock, JavaScript">
   <meta name="robots" content="index, follow">
-
-  <!-- ✅ Social Preview Meta -->
-  <meta property="og:title" content="ZoneTimes – Live World Clock in Your Timezone" />
+  <meta property="og:title" content="ZoneTimes – Live World Clock & Timezone Converter" />
   <meta property="og:description"
-    content="Track 20 world time zones in real time with a beautiful, responsive UI and theme toggle." />
-  <meta property="og:image" content="https://crescendofluffy.github.io/ZoneTimes/media/favicon.png" />
-  <meta property="og:url" content="https://crescendofluffy.github.io/ZoneTimes/" />
+    content="Track world time zones in real time and convert between any two timezones." />
+  <meta property="og:image" content="https://adityakrishnamurthy.github.io/ZoneTimes/media/favicon.png" />
+  <meta property="og:url" content="https://adityakrishnamurthy.github.io/ZoneTimes/" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- ✅ Favicon -->
   <link rel="icon" type="image/png" href="media/favicon.png" sizes="512x512">
   <link rel="icon" type="image/png" sizes="32x32" href="media/favicon.png">
-
-  <!-- ✅ Styles -->
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -36,15 +28,68 @@
       <img src="media/favicon.png" alt="ZoneTime logo" class="logo-icon" />
       ZoneTimes
     </h1>
-    <button id="toggleTheme" title="Toggle theme">🌙</button>
+    <div class="header-actions">
+      <div class="theme-switcher-wrap">
+        <button id="themeSwitcherBtn" type="button" title="Choose theme" aria-label="Choose theme" aria-expanded="false">🎨</button>
+        <div id="themeSwitcherPanel" class="theme-switcher-panel hidden"></div>
+      </div>
+      <button id="toggleTheme" title="Toggle light/dark">🌙</button>
+    </div>
   </header>
 
+  <div class="controls">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Search city or timezone..." autocomplete="off" />
+      <div id="searchResults" class="search-results hidden"></div>
+    </div>
+    <button id="toggleConverter" class="converter-toggle" type="button" aria-expanded="false" aria-controls="converterPanel">
+      <span class="conv-icon">⏱</span> Time Converter
+    </button>
+  </div>
+
+  <section id="converterPanel" class="converter-panel collapsed">
+    <div class="converter-inner">
+      <div class="converter-grid">
+        <div class="converter-field">
+          <label for="fromTzInput">From</label>
+          <div class="tz-search-wrapper">
+            <input type="text" id="fromTzInput" placeholder="Search timezone..." autocomplete="off" />
+            <div id="fromResults" class="tz-results hidden"></div>
+          </div>
+        </div>
+        <button id="swapTz" class="swap-btn" title="Swap timezones">⇄</button>
+        <div class="converter-field">
+          <label for="toTzInput">To</label>
+          <div class="tz-search-wrapper">
+            <input type="text" id="toTzInput" placeholder="Search timezone..." autocomplete="off" />
+            <div id="toResults" class="tz-results hidden"></div>
+          </div>
+        </div>
+        <div class="converter-field">
+          <label for="convDate">Date (DD-MM-YYYY)</label>
+          <div class="date-picker-wrap">
+            <input type="text" id="convDate" placeholder="DD-MM-YYYY" inputmode="numeric" maxlength="10" autocomplete="off" />
+            <button type="button" id="datePickerBtn" class="date-picker-btn" title="Open calendar" aria-label="Open calendar">📅</button>
+            <div id="datePicker" class="date-picker hidden" role="dialog" aria-label="Choose date"></div>
+          </div>
+        </div>
+        <div class="converter-field">
+          <label for="convTime">Time</label>
+          <input type="time" id="convTime" />
+        </div>
+        <div class="converter-field converter-actions">
+          <button id="useNow" class="btn-outline">Now</button>
+          <button id="doConvert" class="btn-primary">Convert</button>
+        </div>
+      </div>
+      <div id="convResult" class="conv-result hidden"></div>
+    </div>
+  </section>
+
   <main>
-    <h2 class="visually-hidden">Live world clocks in 20 major time zones</h2>
+    <h2 class="visually-hidden">Live world clocks</h2>
     <div class="clocks" id="clockContainer"></div>
   </main>
-
-  <script src="script.js"></script>
 
   <footer class="footer">
     <div class="footer-credit">
@@ -52,8 +97,7 @@
     </div>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 
-
 </html>
-
