@@ -235,6 +235,7 @@ function renderDropdown(resultsEl, results, onSelect, opts) {
       }
       btn.addEventListener("mousedown", handleSelect);
       btn.addEventListener("touchend", handleSelect);
+      btn.addEventListener("pointerdown", handleSelect);
     })(item.zone);
     frag.appendChild(btn);
   }
