@@ -690,7 +690,7 @@ function doConvert() {
   var fromZone = getOrResolveZone(fromTz);
   var toZone = getOrResolveZone(toTz);
   if (!fromZone || !toZone) {
-    resultEl.innerHTML = "<p class=\"no-results\">Please select or type valid timezones for both fields.</p>";
+    resultEl.innerHTML = "<p class=\"no-results\">Please select or type valid timezones for both fields to convert.</p>";
     showEl(resultEl);
     return;
   }
