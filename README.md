@@ -1,55 +1,56 @@
 # ZoneTimes
 
-**ZoneTimes** is a sleek, responsive world clock web app that displays real-time clocks for major global time zones — including your local time — all in a clean, mobile-friendly layout with dark/light theme toggle support.
+**ZoneTimes** is a sleek, responsive world clock web app with a built-in timezone converter. Track live clocks for major global time zones, search and add any IANA timezone by city name, and convert between timezones with accuracy.
 
-🔗 **Live**: [https://adityakrishnamurthy.github.io/ZoneTimes/](https://adityakrishnamurthy.github.io/ZoneTimes/)
-
----
-
-## 🌍 Features
-
-- ✅ Real-time clocks for:
-  - Local Time
-  - UTC – Coordinated Universal Time
-  - GMT – Greenwich Mean Time
-  - IST – Indian Standard Time
-  - JST – Japan Standard Time
-  - PST / PDT – Pacific Time
-  - EST / EDT – Eastern Time
-  - CST / CDT – Central Time
-  - CST – China Standard Time
-  - CET / CEST – Central European Time
-  - KST – Korea Standard Time
-  - AEST – Australian Eastern Standard Time
-  - MST / MDT – Mountain Time
-  - BRT – Brasília Time
-  - EET / EEST – Eastern European Time
-  - AST – Arabian Standard Time
-  - GST – Gulf Standard Time
-  - NZST / NZDT – New Zealand Time
-  - SAST – South Africa Standard Time
-  - AST / ADT – Atlantic Time (Canada)
-
-- 🌗 Light/Dark mode toggle (respects system settings)
-- 📱 Fully responsive (2-column layout on mobile)
-- 🎨 Stylish theme inspired by modern palettes
-- 🌐 Hosted for free on GitHub Pages
+Live: [https://adityakrishnamurthy.github.io/ZoneTimes/](https://adityakrishnamurthy.github.io/ZoneTimes/)
 
 ---
 
-## 🛠️ Tech Stack
+## Features
+
+- **Live Clocks**: Real-time clocks for 20+ major world time zones.
+- **Mobile Responsive Grid**: Displays 2 clocks per row on mobile screens down to 320px width.
+- **City & Timezone Search**: Search any IANA timezone by city name, abbreviation (IST, PST, UTC), or zone ID.
+- **Custom Clocks**: Save custom clocks to your grid persisted in `localStorage`.
+- **Timezone Converter**: Convert between any two timezones with auto-completion and DD-MM-YYYY date support.
+- **Calendar Picker**: Built-in touch-friendly date selector for mobile and desktop.
+- **8 Modern Themes**: 4 dark and 4 light glassmorphic themes with interactive theme switcher panel.
+- **Zero Dependencies**: Pure HTML5, Vanilla CSS3, and modern ES6+ JavaScript.
+
+---
+
+## Tech Stack
 
 - HTML5
-- CSS3 (custom theme + responsive layout)
-- JavaScript (Date API + Intl API for time zones)
+- CSS3 (custom properties, glassmorphism, flexbox & grid)
+- JavaScript (Intl.DateTimeFormat + Intl.supportedValuesOf APIs)
+- No frameworks, no build tools
 
-## ✨ Author
+---
 
-Made with 💖 by [**AdityaKrishnamurthy**](https://github.com/AdityaKrishnamurthy)
+## How to Use
 
-## 📄 License
+Open `index.html` in a browser, or serve with any static server:
 
-This project is open-source and available under the [MIT License](https://opensource.org/license/mit).
+```bash
+npx serve .
+```
 
+### Search
+Type a city name (e.g. "Kolkata", "New York"), abbreviation ("PST", "IST"), or timezone ID ("Asia/Tokyo") in the search bar. Click or tap a result to add it to your clock grid.
 
+### Timezone Converter
+Click **Time Converter** to expand the panel. Select From/To timezones by typing and choosing from the dropdown. Pick a date with the calendar icon or enter DD-MM-YYYY manually. Click **Convert** to see the result.
 
+### Themes
+Click the palette icon (🎨) in the header to choose from 8 themes. Your selection is saved automatically.
+
+---
+
+## Author
+
+Created by [AdityaKrishnamurthy](https://github.com/AdityaKrishnamurthy)
+
+## License
+
+MIT License
