@@ -8,6 +8,8 @@ const THEMES = [
 ];
 
 const DEFAULT_CLOCKS = [
+  { zone: "UTC", label: "UTC – Universal Time" },
+  { zone: "Etc/GMT", label: "GMT – Greenwich Mean Time" },
   { zone: "America/New_York", label: "New York, Eastern Time" },
   { zone: "America/Los_Angeles", label: "Los Angeles, Pacific Time" },
   { zone: "America/Chicago", label: "Chicago, Central Time" },
@@ -110,6 +112,8 @@ function resolveZone(zone) {
   if (zone === "Asia/Kolkata") return zoneSupported("Asia/Kolkata") ? "Asia/Kolkata" : "Asia/Calcutta";
   if (zone === "Etc/UTC") return zoneSupported("UTC") ? "UTC" : "Etc/UTC";
   if (zone === "UTC") return zoneSupported("UTC") ? "UTC" : "Etc/UTC";
+  if (zone === "Etc/GMT") return zoneSupported("Etc/GMT") ? "Etc/GMT" : (zoneSupported("GMT") ? "GMT" : "UTC");
+  if (zone === "GMT") return zoneSupported("GMT") ? "GMT" : (zoneSupported("Etc/GMT") ? "Etc/GMT" : "UTC");
   return zone;
 }
 
