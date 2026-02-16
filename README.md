@@ -2,8 +2,6 @@
 
 **ZoneTimes** is a sleek, responsive world clock web app with a built-in timezone converter. Track live clocks for major global time zones, search and add any IANA timezone by city name, and convert between timezones with accuracy.
 
-Live: [https://adityakrishnamurthy.github.io/ZoneTimes/](https://adityakrishnamurthy.github.io/ZoneTimes/)
-
 ---
 
 ## Features
@@ -14,7 +12,7 @@ Live: [https://adityakrishnamurthy.github.io/ZoneTimes/](https://adityakrishnamu
 - **Custom Clocks**: Save custom clocks to your grid persisted in `localStorage`.
 - **Timezone Converter**: Convert between any two timezones with auto-completion and DD-MM-YYYY date support.
 - **Calendar Picker**: Built-in touch-friendly date selector for mobile and desktop.
-- **8 Modern Themes**: 4 dark and 4 light glassmorphic themes with interactive theme switcher panel.
+- **Modern Themes**: Glassmorphic themes with interactive theme switcher panel.
 - **Zero Dependencies**: Pure HTML5, Vanilla CSS3, and modern ES6+ JavaScript.
 
 ---
@@ -43,14 +41,10 @@ Type a city name (e.g. "Kolkata", "New York"), abbreviation ("PST", "IST"), or t
 Click **Time Converter** to expand the panel. Select From/To timezones by typing and choosing from the dropdown. Pick a date with the calendar icon or enter DD-MM-YYYY manually. Click **Convert** to see the result.
 
 ### Themes
-Click the palette icon (🎨) in the header to choose from 8 themes. Your selection is saved automatically.
+Click the palette icon (🎨) in the header to choose themes. Your selection is saved automatically.
 
 ---
 
 ## Author
 
 Created by [AdityaKrishnamurthy](https://github.com/AdityaKrishnamurthy)
-
-## License
-
-MIT License

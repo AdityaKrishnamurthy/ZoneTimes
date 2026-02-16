@@ -972,6 +972,14 @@ function init() {
   buildDatePicker();
   buildThemeSwitcherPanel();
 
+  var logoLink = document.getElementById("logoLink");
+  if (logoLink) {
+    logoLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      window.location.reload();
+    });
+  }
+
   var searchInput = document.getElementById("searchInput");
   var searchResults = document.getElementById("searchResults");
   if (searchInput && searchResults) {
