@@ -429,11 +429,28 @@ function createClockCard(zone, label, isUser) {
   return card;
 }
 
+function getLocalTimeZone() {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+  } catch (e) {
+    return "";
+  }
+}
+
 function renderClocks() {
   var container = document.getElementById("clockContainer");
   if (!container) return;
   container.innerHTML = "";
   var addedZones = [];
+
+  var localZone = resolveZone(getLocalTimeZone());
+  if (localZone && zoneSupported(localZone)) {
+    addedZones.push(localZone);
+    var localLabel = "Your Local Time (" + getZoneLabel(localZone) + ")";
+    var localCard = createClockCard(localZone, localLabel, false);
+    localCard.classList.add("local-clock");
+    container.appendChild(localCard);
+  }
 
   for (var i = 0; i < DEFAULT_CLOCKS.length; i++) {
     var dc = DEFAULT_CLOCKS[i];
