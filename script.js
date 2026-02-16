@@ -2,12 +2,8 @@
 
 const THEMES = [
   { group: "Dark", slug: "", name: "Slate (Default)", swatch: ["#0f0f1a","#1a1a2e","#6366f1"] },
-  { group: "Dark", slug: "theme-midnight-indigo", name: "Midnight Indigo", swatch: ["#0b0e2a","#1a1147","#8b7dff"] },
-  { group: "Dark", slug: "theme-carbon-ember", name: "Carbon Ember", swatch: ["#1a1410","#0d0b09","#ff9d4d"] },
   { group: "Dark", slug: "theme-forest-eclipse", name: "Forest Eclipse", swatch: ["#061a16","#0a241d","#4fd6a8"] },
   { group: "Light", slug: "", name: "Cloud (Default)", swatch: ["#f0f4f8","#e2e8f0","#4f46e5"] },
-  { group: "Light", slug: "theme-morning-frost", name: "Morning Frost", swatch: ["#eaf2fb","#f5f9fd","#3a4fd6"] },
-  { group: "Light", slug: "theme-sandstone", name: "Sandstone", swatch: ["#f7f1e8","#fbf6ee","#a8501f"] },
   { group: "Light", slug: "theme-mint-glass", name: "Mint Glass", swatch: ["#eaf7f3","#f4faf7","#0f8a72"] }
 ];
 
@@ -574,10 +570,13 @@ function updateThemePanel() {
       row.appendChild(nameSpan);
 
       (function(slug, group) {
-        row.addEventListener("mousedown", function(e) {
+        function selectThemeHandler(e) {
           e.preventDefault();
           setTheme(slug, group);
-        });
+        }
+        row.addEventListener("mousedown", selectThemeHandler);
+        row.addEventListener("touchend", selectThemeHandler);
+        row.addEventListener("pointerdown", selectThemeHandler);
       })(theme.slug, theme.group);
 
       panel.appendChild(row);

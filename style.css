@@ -444,7 +444,17 @@ h1{font-size:clamp(1.25rem,4vw,1.65rem);font-weight:700;letter-spacing:-0.5px;li
   .clock .zone-offset{margin-top:4px;font-size:0.68rem}
   .clock .remove-btn{top:4px;right:4px;width:26px;height:26px;font-size:0.9rem;opacity:0.85}
   .clock:hover{transform:none}
-  .theme-switcher-panel{right:0;left:0;min-width:unset;max-width:unset;width:auto}
+  .theme-switcher-panel{
+    position:fixed;
+    top:60px;
+    right:12px;
+    left:auto;
+    width:clamp(220px, 80vw, 280px);
+    min-width:220px;
+    max-width:280px;
+    box-shadow:0 12px 36px rgba(0,0,0,0.45);
+    z-index:300;
+  }
   .header-actions{gap:6px}
   .date-picker{
     position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
