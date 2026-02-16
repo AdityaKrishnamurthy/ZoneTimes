@@ -445,11 +445,10 @@ function renderClocks() {
   var container = document.getElementById("clockContainer");
   if (!container) return;
   container.innerHTML = "";
-  var addedZones = [];
+  var defaultAdded = [];
 
   var localZone = resolveZone(getLocalTimeZone());
   if (localZone && zoneSupported(localZone)) {
-    addedZones.push(localZone);
     var localLabel = "Your Local Time (" + getZoneLabel(localZone) + ")";
     var localCard = createClockCard(localZone, localLabel, false);
     localCard.classList.add("local-clock");
@@ -459,8 +458,8 @@ function renderClocks() {
   for (var i = 0; i < DEFAULT_CLOCKS.length; i++) {
     var dc = DEFAULT_CLOCKS[i];
     var zone = resolveZone(dc.zone);
-    if (zoneSupported(zone) && addedZones.indexOf(zone) === -1) {
-      addedZones.push(zone);
+    if (zoneSupported(zone) && defaultAdded.indexOf(zone) === -1) {
+      defaultAdded.push(zone);
       container.appendChild(createClockCard(zone, dc.label, false));
     }
   }
@@ -469,8 +468,8 @@ function renderClocks() {
   for (var j = 0; j < userClocks.length; j++) {
     var uc = userClocks[j];
     var uz = resolveZone(uc.zone);
-    if (zoneSupported(uz) && addedZones.indexOf(uz) === -1) {
-      addedZones.push(uz);
+    if (zoneSupported(uz) && defaultAdded.indexOf(uz) === -1) {
+      defaultAdded.push(uz);
       var card = createClockCard(uz, uc.label, true);
       card.classList.add("highlight");
       container.appendChild(card);
