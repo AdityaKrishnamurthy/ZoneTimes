@@ -294,6 +294,18 @@ h1{font-size:clamp(1.25rem,4vw,1.65rem);font-weight:700;letter-spacing:-0.5px;li
 .converter-field label{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-muted)}
 .tz-search-wrapper{position:relative;z-index:10}
 .tz-search-wrapper:focus-within{z-index:50}
+.time-picker-wrap{display:flex;gap:6px;align-items:center}
+.time-picker-wrap input[type="text"]{flex:1;min-width:0}
+.ampm-select{
+  padding:10px 8px;font-size:0.88rem;font-weight:700;
+  background:var(--input-bg);color:var(--text);
+  border:1px solid var(--input-border);border-radius:var(--radius-sm);
+  outline:none;cursor:pointer;min-height:44px;flex-shrink:0;
+  transition:border var(--transition),background var(--transition);
+  color-scheme:dark;
+}
+body.light .ampm-select{color-scheme:light}
+.ampm-select:focus{border-color:var(--input-focus-border)}
 .swap-btn{
   padding:10px 12px;font-size:1.15rem;
   background:var(--input-bg);color:var(--text);

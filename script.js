@@ -641,51 +641,95 @@ function parseDateDMY(value) {
 }
 
 function createDateForZone(day, month, year, hour, minute, zone) {
-  var d = new Date(year, month - 1, day, hour, minute, 0);
+  var targetUtc = Date.UTC(year, month - 1, day, hour, minute, 0);
+  var d = new Date(targetUtc);
+
   for (var i = 0; i < 5; i++) {
     var formatter = new Intl.DateTimeFormat("en-US", {
-      timeZone: zone, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit",
+      timeZone: zone,
+      year: "numeric", month: "2-digit", day: "2-digit",
+      hour: "2-digit", minute: "2-digit", second: "2-digit",
       hour12: false
     });
     var parts = formatter.formatToParts(d);
     var actual = {};
     for (var j = 0; j < parts.length; j++) {
-      if (parts[j].type !== "literal") actual[parts[j].type] = parseInt(parts[j].value, 10);
+      if (parts[j].type !== "literal") {
+        actual[parts[j].type] = parseInt(parts[j].value, 10);
+      }
     }
-    if (actual.month === month && actual.day === day && actual.hour === hour && actual.minute === minute) {
+    if (actual.hour === 24) actual.hour = 0;
+
+    var actualAsUtc = Date.UTC(
+      actual.year,
+      actual.month - 1,
+      actual.day,
+      actual.hour,
+      actual.minute,
+      actual.second || 0
+    );
+
+    var diff = targetUtc - actualAsUtc;
+    if (diff === 0) {
       return d;
     }
-    var offset = 0;
-    if (actual.month !== month || actual.day !== day) {
-      if (actual.month < month || (actual.month === month && actual.day < day)) {
-        offset = 86400000;
-      } else {
-        offset = -86400000;
-      }
-    } else {
-      if (actual.hour < hour || (actual.hour === hour && actual.minute < minute)) {
-        offset = 60 * 60 * 1000;
-      } else {
-        offset = -60 * 60 * 1000;
-      }
-    }
-    d = new Date(d.getTime() + offset);
+    d = new Date(d.getTime() + diff);
   }
   return d;
+}
+
+function parseTimeInput(timeStr, ampmVal) {
+  var str = (timeStr || "").trim().toUpperCase();
+  if (!str) return { hour: 0, minute: 0 };
+
+  var hasAm = str.indexOf("AM") !== -1;
+  var hasPm = str.indexOf("PM") !== -1;
+  var clean = str.replace(/[^\d:]/g, "");
+  var parts = clean.split(":");
+  var h = parseInt(parts[0], 10);
+  var m = parts.length > 1 ? parseInt(parts[1], 10) : 0;
+  if (isNaN(h)) h = 0;
+  if (isNaN(m)) m = 0;
+
+  var isPm = hasPm || (!hasAm && (ampmVal || "").toUpperCase() === "PM");
+  var isAm = hasAm || (!hasPm && (ampmVal || "").toUpperCase() === "AM");
+
+  if (!hasAm && !hasPm && h >= 13) {
+    return { hour: h, minute: m };
+  }
+
+  if (isPm && h < 12) {
+    h += 12;
+  } else if (isAm && h === 12) {
+    h = 0;
+  }
+
+  return { hour: h, minute: m };
 }
 
 function setNow() {
   var dateInput = document.getElementById("convDate");
   var timeInput = document.getElementById("convTime");
+  var ampmSelect = document.getElementById("convAmpm");
   if (!dateInput || !timeInput) return;
+
   var now = new Date();
   var dd = String(now.getDate()).padStart(2, "0");
   var mm = String(now.getMonth() + 1).padStart(2, "0");
   var yyyy = now.getFullYear();
-  var hh = String(now.getHours()).padStart(2, "0");
-  var min = String(now.getMinutes()).padStart(2, "0");
   dateInput.value = dd + "-" + mm + "-" + yyyy;
-  timeInput.value = hh + ":" + min;
+
+  var hours24 = now.getHours();
+  var minutes = String(now.getMinutes()).padStart(2, "0");
+  var isPm = hours24 >= 12;
+  var hours12 = hours24 % 12;
+  if (hours12 === 0) hours12 = 12;
+  var hh12 = String(hours12).padStart(2, "0");
+
+  timeInput.value = hh12 + ":" + minutes;
+  if (ampmSelect) {
+    ampmSelect.value = isPm ? "PM" : "AM";
+  }
 }
 
 function getOrResolveZone(inputEl) {
@@ -708,6 +752,7 @@ function doConvert() {
   var toTz = document.getElementById("toTzInput");
   var dateEl = document.getElementById("convDate");
   var timeEl = document.getElementById("convTime");
+  var ampmEl = document.getElementById("convAmpm");
   var resultEl = document.getElementById("convResult");
 
   if (!fromTz || !toTz || !dateEl || !timeEl || !resultEl) return;
@@ -724,20 +769,17 @@ function doConvert() {
     setNow();
   }
 
-  var parsed = parseDateDMY(dateEl.value);
-  if (!parsed.valid) {
+  var parsedDate = parseDateDMY(dateEl.value);
+  if (!parsedDate.valid) {
     resultEl.innerHTML = "<p class=\"no-results\">Invalid date. Use DD-MM-YYYY format.</p>";
     showEl(resultEl);
     return;
   }
 
-  var timeParts = (timeEl.value || "00:00").split(":");
-  var hour = parseInt(timeParts[0], 10);
-  var minute = parseInt(timeParts[1], 10);
-  if (isNaN(hour)) hour = 0;
-  if (isNaN(minute)) minute = 0;
+  var ampmVal = ampmEl ? ampmEl.value : "";
+  var parsedTime = parseTimeInput(timeEl.value, ampmVal);
 
-  var fromDate = createDateForZone(parsed.day, parsed.month, parsed.year, hour, minute, fromZone);
+  var fromDate = createDateForZone(parsedDate.day, parsedDate.month, parsedDate.year, parsedTime.hour, parsedTime.minute, fromZone);
   var toDate = new Date(fromDate.getTime());
 
   var fromLabel = getZoneLabel(fromZone);

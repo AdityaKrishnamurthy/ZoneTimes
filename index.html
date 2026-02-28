@@ -77,7 +77,13 @@
         </div>
         <div class="converter-field">
           <label for="convTime">Time</label>
-          <input type="time" id="convTime" />
+          <div class="time-picker-wrap">
+            <input type="text" id="convTime" placeholder="08:00" inputmode="numeric" autocomplete="off" />
+            <select id="convAmpm" class="ampm-select" aria-label="Select AM or PM">
+              <option value="AM">AM</option>
+              <option value="PM" selected>PM</option>
+            </select>
+          </div>
         </div>
         <div class="converter-field converter-actions">
           <button id="useNow" class="btn-outline">Now</button>
