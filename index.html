@@ -31,6 +31,7 @@
       </a>
     </h1>
     <div class="header-actions">
+      <button id="infoBtn" type="button" title="Timezone & Abbreviation Guide" aria-label="Timezone Guide">ℹ️</button>
       <div class="theme-switcher-wrap">
         <button id="themeSwitcherBtn" type="button" title="Choose theme" aria-label="Choose theme" aria-expanded="false">🎨</button>
         <div id="themeSwitcherPanel" class="theme-switcher-panel hidden"></div>
@@ -104,6 +105,19 @@
       Created by <a href="https://github.com/AdityaKrishnamurthy/" target="_blank" rel="noopener">AdityaKrishnamurthy</a>
     </div>
   </footer>
+
+  <div id="infoModalOverlay" class="modal-overlay hidden">
+    <div id="infoModal" class="info-modal" role="dialog" aria-labelledby="infoModalTitle">
+      <div class="info-modal-header">
+        <h3 id="infoModalTitle">ℹ️ Timezone & Abbreviation Guide</h3>
+        <button type="button" id="closeInfoModal" class="close-modal-btn" aria-label="Close guide">&times;</button>
+      </div>
+      <div class="info-modal-search">
+        <input type="text" id="infoSearchInput" placeholder="Search abbreviation (IST, PST), country, or city..." autocomplete="off" />
+      </div>
+      <div class="info-modal-body" id="infoModalBody"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

@@ -1,5 +1,26 @@
 'use strict';
 
+const TZ_REFERENCE = [
+  { abbr: "UTC / GMT", name: "Coordinated Universal Time / Greenwich Mean Time", offset: "UTC+0:00", country: "Global / UK", cities: ["London", "Greenwich"] },
+  { abbr: "IST", name: "Indian Standard Time", offset: "UTC+5:30", country: "India", cities: ["New Delhi", "Mumbai"] },
+  { abbr: "PST / PDT", name: "Pacific Time", offset: "UTC-8:00 / UTC-7:00", country: "United States & Canada", cities: ["Los Angeles", "San Francisco"] },
+  { abbr: "EST / EDT", name: "Eastern Time", offset: "UTC-5:00 / UTC-4:00", country: "United States & Canada", cities: ["New York", "Toronto"] },
+  { abbr: "CST / CDT", name: "Central Time (US)", offset: "UTC-6:00 / UTC-5:00", country: "United States & Mexico", cities: ["Chicago", "Mexico City"] },
+  { abbr: "MST / MDT", name: "Mountain Time", offset: "UTC-7:00 / UTC-6:00", country: "United States & Canada", cities: ["Denver", "Phoenix"] },
+  { abbr: "JST", name: "Japan Standard Time", offset: "UTC+9:00", country: "Japan", cities: ["Tokyo", "Osaka"] },
+  { abbr: "CST (China)", name: "China Standard Time", offset: "UTC+8:00", country: "China", cities: ["Beijing", "Shanghai"] },
+  { abbr: "CET / CEST", name: "Central European Time", offset: "UTC+1:00 / UTC+2:00", country: "Germany & France", cities: ["Berlin", "Paris"] },
+  { abbr: "AEST / AEDT", name: "Australian Eastern Time", offset: "UTC+10:00 / UTC+11:00", country: "Australia", cities: ["Sydney", "Melbourne"] },
+  { abbr: "KST", name: "Korea Standard Time", offset: "UTC+9:00", country: "South Korea", cities: ["Seoul", "Busan"] },
+  { abbr: "SGT", name: "Singapore Time", offset: "UTC+8:00", country: "Singapore", cities: ["Singapore", "Jurong"] },
+  { abbr: "HKT", name: "Hong Kong Time", offset: "UTC+8:00", country: "Hong Kong", cities: ["Hong Kong", "Kowloon"] },
+  { abbr: "GST / AST", name: "Gulf / Arabian Standard Time", offset: "UTC+4:00 / UTC+3:00", country: "UAE & Saudi Arabia", cities: ["Dubai", "Riyadh"] },
+  { abbr: "BRT", name: "Brasília Time", offset: "UTC-3:00", country: "Brazil", cities: ["São Paulo", "Rio de Janeiro"] },
+  { abbr: "EET / EEST", name: "Eastern European Time", offset: "UTC+2:00 / UTC+3:00", country: "Egypt & Greece", cities: ["Cairo", "Athens"] },
+  { abbr: "NZST / NZDT", name: "New Zealand Time", offset: "UTC+12:00 / UTC+13:00", country: "New Zealand", cities: ["Auckland", "Wellington"] },
+  { abbr: "SAST", name: "South Africa Standard Time", offset: "UTC+2:00", country: "South Africa", cities: ["Johannesburg", "Cape Town"] }
+];
+
 const THEMES = [
   { group: "Dark", slug: "", name: "Slate (Default)", swatch: ["#0f0f1a","#1a1a2e","#6366f1"] },
   { group: "Dark", slug: "theme-forest-eclipse", name: "Forest Eclipse", swatch: ["#061a16","#0a241d","#4fd6a8"] },
@@ -1032,12 +1053,110 @@ function findClockCard(zone) {
   return null;
 }
 
+function renderInfoModal(filterText) {
+  var body = document.getElementById("infoModalBody");
+  if (!body) return;
+  body.innerHTML = "";
+
+  var query = (filterText || "").toLowerCase().trim();
+  var filtered = TZ_REFERENCE.filter(function(item) {
+    if (!query) return true;
+    var matchAbbr = item.abbr.toLowerCase().indexOf(query) !== -1;
+    var matchName = item.name.toLowerCase().indexOf(query) !== -1;
+    var matchCountry = item.country.toLowerCase().indexOf(query) !== -1;
+    var matchCities = item.cities.some(function(c) { return c.toLowerCase().indexOf(query) !== -1; });
+    return matchAbbr || matchName || matchCountry || matchCities;
+  });
+
+  if (filtered.length === 0) {
+    body.innerHTML = '<p class="no-results">No matching timezone, country, or city found.</p>';
+    return;
+  }
+
+  var grid = document.createElement("div");
+  grid.className = "info-guide-grid";
+
+  for (var i = 0; i < filtered.length; i++) {
+    var ref = filtered[i];
+    var card = document.createElement("div");
+    card.className = "info-guide-card";
+
+    var topRow = document.createElement("div");
+    topRow.className = "info-guide-header";
+
+    var abbrSpan = document.createElement("span");
+    abbrSpan.className = "info-guide-abbr";
+    abbrSpan.textContent = ref.abbr;
+
+    var offsetSpan = document.createElement("span");
+    offsetSpan.className = "info-guide-offset";
+    offsetSpan.textContent = ref.offset;
+
+    topRow.appendChild(abbrSpan);
+    topRow.appendChild(offsetSpan);
+
+    var nameDiv = document.createElement("div");
+    nameDiv.className = "info-guide-name";
+    nameDiv.textContent = ref.name;
+
+    var metaDiv = document.createElement("div");
+    metaDiv.className = "info-guide-meta";
+    metaDiv.innerHTML = '<strong>' + ref.country + '</strong> • ' + ref.cities.join(", ");
+
+    card.appendChild(topRow);
+    card.appendChild(nameDiv);
+    card.appendChild(metaDiv);
+    grid.appendChild(card);
+  }
+
+  body.appendChild(grid);
+}
+
+function initInfoModal() {
+  var infoBtn = document.getElementById("infoBtn");
+  var overlay = document.getElementById("infoModalOverlay");
+  var closeBtn = document.getElementById("closeInfoModal");
+  var searchInput = document.getElementById("infoSearchInput");
+
+  if (!infoBtn || !overlay) return;
+
+  function openModal() {
+    renderInfoModal(searchInput ? searchInput.value : "");
+    showEl(overlay);
+    if (searchInput) searchInput.focus();
+  }
+
+  function closeModal() {
+    hideEl(overlay);
+  }
+
+  infoBtn.addEventListener("click", openModal);
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  overlay.addEventListener("click", function(e) {
+    if (e.target === overlay) closeModal();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && !overlay.classList.contains("hidden")) {
+      closeModal();
+    }
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", function() {
+      renderInfoModal(searchInput.value);
+    });
+  }
+}
+
 function init() {
   initTheme();
   updateThemeToggleIcon();
   renderClocks();
   buildDatePicker();
   buildThemeSwitcherPanel();
+  initInfoModal();
 
   var logoLink = document.getElementById("logoLink");
   if (logoLink) {
