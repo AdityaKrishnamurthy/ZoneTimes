@@ -943,17 +943,72 @@ function setNow() {
   }
 }
 
+const ABBR_MAP = {
+  "IST": "Asia/Kolkata",
+  "JST": "Asia/Tokyo",
+  "PST": "America/Los_Angeles",
+  "PDT": "America/Los_Angeles",
+  "EST": "America/New_York",
+  "EDT": "America/New_York",
+  "CST": "America/Chicago",
+  "CDT": "America/Chicago",
+  "MST": "America/Denver",
+  "MDT": "America/Denver",
+  "AKST": "America/Anchorage",
+  "AKDT": "America/Anchorage",
+  "HST": "Pacific/Honolulu",
+  "CET": "Europe/Berlin",
+  "CEST": "Europe/Berlin",
+  "EET": "Africa/Cairo",
+  "EEST": "Africa/Cairo",
+  "AEST": "Australia/Sydney",
+  "AEDT": "Australia/Sydney",
+  "ACST": "Australia/Adelaide",
+  "ACDT": "Australia/Adelaide",
+  "AWST": "Australia/Perth",
+  "KST": "Asia/Seoul",
+  "SGT": "Asia/Singapore",
+  "HKT": "Asia/Hong_Kong",
+  "GST": "Asia/Dubai",
+  "AST": "Asia/Dubai",
+  "BRT": "America/Sao_Paulo",
+  "NZST": "Pacific/Auckland",
+  "NZDT": "Pacific/Auckland",
+  "SAST": "Africa/Johannesburg",
+  "ART": "America/Argentina/Buenos_Aires",
+  "PKT": "Asia/Karachi",
+  "BST": "Asia/Dhaka",
+  "NPT": "Asia/Kathmandu",
+  "UTC": "UTC",
+  "GMT": "Etc/GMT",
+  "CST CHINA": "Asia/Shanghai",
+  "CST (CHINA)": "Asia/Shanghai"
+};
+
 function getOrResolveZone(inputEl) {
   if (!inputEl) return "";
-  var zone = inputEl.getAttribute("data-zone") || "";
-  if (zone) return zone;
   var val = (inputEl.value || "").trim();
   if (!val) return "";
+
+  var upper = val.toUpperCase();
+  if (ABBR_MAP[upper]) {
+    var mappedZone = resolveZone(ABBR_MAP[upper]);
+    if (zoneSupported(mappedZone)) {
+      inputEl.setAttribute("data-zone", mappedZone);
+      return mappedZone;
+    }
+  }
+
+  var currentAttr = inputEl.getAttribute("data-zone") || "";
+  if (currentAttr && zoneSupported(currentAttr)) {
+    return currentAttr;
+  }
+
   var matches = searchTimezones(val);
   if (matches.length > 0) {
-    inputEl.setAttribute("data-zone", matches[0].zone);
-    inputEl.value = matches[0].label;
-    return matches[0].zone;
+    var zone = matches[0].zone;
+    inputEl.setAttribute("data-zone", zone);
+    return zone;
   }
   return "";
 }
