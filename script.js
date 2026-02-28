@@ -1,24 +1,188 @@
 'use strict';
 
 const TZ_REFERENCE = [
-  { abbr: "UTC / GMT", name: "Coordinated Universal Time / Greenwich Mean Time", offset: "UTC+0:00", country: "Global / UK", cities: ["London", "Greenwich"] },
-  { abbr: "IST", name: "Indian Standard Time", offset: "UTC+5:30", country: "India", cities: ["New Delhi", "Mumbai"] },
-  { abbr: "PST / PDT", name: "Pacific Time", offset: "UTC-8:00 / UTC-7:00", country: "United States & Canada", cities: ["Los Angeles", "San Francisco"] },
-  { abbr: "EST / EDT", name: "Eastern Time", offset: "UTC-5:00 / UTC-4:00", country: "United States & Canada", cities: ["New York", "Toronto"] },
-  { abbr: "CST / CDT", name: "Central Time (US)", offset: "UTC-6:00 / UTC-5:00", country: "United States & Mexico", cities: ["Chicago", "Mexico City"] },
-  { abbr: "MST / MDT", name: "Mountain Time", offset: "UTC-7:00 / UTC-6:00", country: "United States & Canada", cities: ["Denver", "Phoenix"] },
-  { abbr: "JST", name: "Japan Standard Time", offset: "UTC+9:00", country: "Japan", cities: ["Tokyo", "Osaka"] },
-  { abbr: "CST (China)", name: "China Standard Time", offset: "UTC+8:00", country: "China", cities: ["Beijing", "Shanghai"] },
-  { abbr: "CET / CEST", name: "Central European Time", offset: "UTC+1:00 / UTC+2:00", country: "Germany & France", cities: ["Berlin", "Paris"] },
-  { abbr: "AEST / AEDT", name: "Australian Eastern Time", offset: "UTC+10:00 / UTC+11:00", country: "Australia", cities: ["Sydney", "Melbourne"] },
-  { abbr: "KST", name: "Korea Standard Time", offset: "UTC+9:00", country: "South Korea", cities: ["Seoul", "Busan"] },
-  { abbr: "SGT", name: "Singapore Time", offset: "UTC+8:00", country: "Singapore", cities: ["Singapore", "Jurong"] },
-  { abbr: "HKT", name: "Hong Kong Time", offset: "UTC+8:00", country: "Hong Kong", cities: ["Hong Kong", "Kowloon"] },
-  { abbr: "GST / AST", name: "Gulf / Arabian Standard Time", offset: "UTC+4:00 / UTC+3:00", country: "UAE & Saudi Arabia", cities: ["Dubai", "Riyadh"] },
-  { abbr: "BRT", name: "Brasília Time", offset: "UTC-3:00", country: "Brazil", cities: ["São Paulo", "Rio de Janeiro"] },
-  { abbr: "EET / EEST", name: "Eastern European Time", offset: "UTC+2:00 / UTC+3:00", country: "Egypt & Greece", cities: ["Cairo", "Athens"] },
-  { abbr: "NZST / NZDT", name: "New Zealand Time", offset: "UTC+12:00 / UTC+13:00", country: "New Zealand", cities: ["Auckland", "Wellington"] },
-  { abbr: "SAST", name: "South Africa Standard Time", offset: "UTC+2:00", country: "South Africa", cities: ["Johannesburg", "Cape Town"] }
+  {
+    abbr: "UTC / GMT",
+    name: "Coordinated Universal Time / Greenwich Mean Time",
+    offset: "UTC+0:00",
+    country: "Global / United Kingdom",
+    cities: ["London", "Greenwich", "Reykjavik", "Dublin", "Lisbon", "Accra", "Dakar"]
+  },
+  {
+    abbr: "IST",
+    name: "Indian Standard Time",
+    offset: "UTC+5:30",
+    country: "India",
+    cities: ["Kolkata", "New Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Surat", "Lucknow", "Chandigarh"]
+  },
+  {
+    abbr: "PST / PDT",
+    name: "Pacific Time",
+    offset: "UTC-8:00 / UTC-7:00",
+    country: "United States, Canada & Mexico",
+    cities: ["Los Angeles", "San Francisco", "Seattle", "San Jose", "San Diego", "Vancouver", "Tijuana", "Las Vegas", "Portland", "Sacramento"]
+  },
+  {
+    abbr: "EST / EDT",
+    name: "Eastern Time",
+    offset: "UTC-5:00 / UTC-4:00",
+    country: "United States, Canada & Bahamas",
+    cities: ["New York", "Toronto", "Washington D.C.", "Boston", "Miami", "Atlanta", "Philadelphia", "Montreal", "Ottawa", "Detroit", "Cleveland", "Baltimore"]
+  },
+  {
+    abbr: "CST / CDT",
+    name: "Central Time (US & Canada)",
+    offset: "UTC-6:00 / UTC-5:00",
+    country: "United States, Canada & Mexico",
+    cities: ["Chicago", "Houston", "Dallas", "Austin", "San Antonio", "Mexico City", "Winnipeg", "Minneapolis", "New Orleans", "St. Louis"]
+  },
+  {
+    abbr: "MST / MDT",
+    name: "Mountain Time",
+    offset: "UTC-7:00 / UTC-6:00",
+    country: "United States, Canada & Mexico",
+    cities: ["Denver", "Phoenix", "Salt Lake City", "Calgary", "Edmonton", "Albuquerque", "El Paso", "Tucson"]
+  },
+  {
+    abbr: "AKST / AKDT",
+    name: "Alaska Time",
+    offset: "UTC-9:00 / UTC-8:00",
+    country: "United States (Alaska)",
+    cities: ["Anchorage", "Fairbanks", "Juneau"]
+  },
+  {
+    abbr: "HST",
+    name: "Hawaii-Aleutian Time",
+    offset: "UTC-10:00",
+    country: "United States (Hawaii)",
+    cities: ["Honolulu", "Hilo", "Kailua"]
+  },
+  {
+    abbr: "JST",
+    name: "Japan Standard Time",
+    offset: "UTC+9:00",
+    country: "Japan",
+    cities: ["Tokyo", "Osaka", "Yokohama", "Kyoto", "Nagoya", "Sapporo", "Fukuoka", "Kobe"]
+  },
+  {
+    abbr: "CST (China)",
+    name: "China Standard Time",
+    offset: "UTC+8:00",
+    country: "China",
+    cities: ["Beijing", "Shanghai", "Shenzhen", "Guangzhou", "Chengdu", "Wuhan", "Hangzhou", "Xi'an", "Tianjin", "Chongqing"]
+  },
+  {
+    abbr: "CET / CEST",
+    name: "Central European Time",
+    offset: "UTC+1:00 / UTC+2:00",
+    country: "Germany, France, Italy, Spain, Netherlands & Switzerland",
+    cities: ["Berlin", "Paris", "Rome", "Madrid", "Amsterdam", "Zurich", "Vienna", "Brussels", "Munich", "Milan", "Frankfurt", "Barcelona", "Geneva"]
+  },
+  {
+    abbr: "AEST / AEDT",
+    name: "Australian Eastern Time",
+    offset: "UTC+10:00 / UTC+11:00",
+    country: "Australia",
+    cities: ["Sydney", "Melbourne", "Brisbane", "Canberra", "Gold Coast", "Hobart"]
+  },
+  {
+    abbr: "ACST / ACDT",
+    name: "Australian Central Time",
+    offset: "UTC+9:30 / UTC+10:30",
+    country: "Australia",
+    cities: ["Adelaide", "Darwin", "Alice Springs"]
+  },
+  {
+    abbr: "AWST",
+    name: "Australian Western Time",
+    offset: "UTC+8:00",
+    country: "Australia",
+    cities: ["Perth", "Fremantle"]
+  },
+  {
+    abbr: "KST",
+    name: "Korea Standard Time",
+    offset: "UTC+9:00",
+    country: "South Korea",
+    cities: ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon"]
+  },
+  {
+    abbr: "SGT",
+    name: "Singapore Time",
+    offset: "UTC+8:00",
+    country: "Singapore",
+    cities: ["Singapore", "Jurong", "Woodlands", "Tampines"]
+  },
+  {
+    abbr: "HKT",
+    name: "Hong Kong Time",
+    offset: "UTC+8:00",
+    country: "Hong Kong",
+    cities: ["Hong Kong", "Kowloon", "Shatin", "Tuen Mun"]
+  },
+  {
+    abbr: "GST / AST",
+    name: "Gulf & Arabian Standard Time",
+    offset: "UTC+4:00 / UTC+3:00",
+    country: "UAE, Saudi Arabia, Qatar & Kuwait",
+    cities: ["Dubai", "Abu Dhabi", "Riyadh", "Jeddah", "Doha", "Kuwait City", "Muscat"]
+  },
+  {
+    abbr: "BRT",
+    name: "Brasília Time",
+    offset: "UTC-3:00",
+    country: "Brazil",
+    cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte"]
+  },
+  {
+    abbr: "EET / EEST",
+    name: "Eastern European Time",
+    offset: "UTC+2:00 / UTC+3:00",
+    country: "Egypt, Greece, Finland, Ukraine & Romania",
+    cities: ["Cairo", "Athens", "Helsinki", "Kyiv", "Bucharest", "Istanbul"]
+  },
+  {
+    abbr: "NZST / NZDT",
+    name: "New Zealand Time",
+    offset: "UTC+12:00 / UTC+13:00",
+    country: "New Zealand",
+    cities: ["Auckland", "Wellington", "Christchurch", "Hamilton", "Dunedin"]
+  },
+  {
+    abbr: "SAST",
+    name: "South Africa Standard Time",
+    offset: "UTC+2:00",
+    country: "South Africa",
+    cities: ["Johannesburg", "Cape Town", "Durban", "Pretoria"]
+  },
+  {
+    abbr: "ART",
+    name: "Argentina Time",
+    offset: "UTC-3:00",
+    country: "Argentina",
+    cities: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza"]
+  },
+  {
+    abbr: "PKT",
+    name: "Pakistan Standard Time",
+    offset: "UTC+5:00",
+    country: "Pakistan",
+    cities: ["Karachi", "Lahore", "Islamabad", "Rawalpindi"]
+  },
+  {
+    abbr: "BST (Bangladesh)",
+    name: "Bangladesh Standard Time",
+    offset: "UTC+6:00",
+    country: "Bangladesh",
+    cities: ["Dhaka", "Chittagong", "Khulna", "Sylhet"]
+  },
+  {
+    abbr: "NPT",
+    name: "Nepal Time",
+    offset: "UTC+5:45",
+    country: "Nepal",
+    cities: ["Kathmandu", "Pokhara", "Lalitpur"]
+  }
 ];
 
 const THEMES = [
@@ -473,6 +637,7 @@ function renderClocks() {
   container.innerHTML = "";
   var defaultAdded = [];
 
+  // 1. Hero Card: Your Local Time (always Card 1)
   var localZone = resolveZone(getLocalTimeZone());
   if (localZone && zoneSupported(localZone)) {
     var localLabel = "Your Local Time (" + getZoneLabel(localZone) + ")";
@@ -481,9 +646,25 @@ function renderClocks() {
     container.appendChild(localCard);
   }
 
+  // 2. Mandatory Top Clocks: UTC & GMT placed immediately after Local Time (Cards 2 & 3)
+  var topClocks = [
+    { zone: "UTC", label: "UTC – Universal Time" },
+    { zone: "Etc/GMT", label: "GMT – Greenwich Mean Time" }
+  ];
+
+  for (var k = 0; k < topClocks.length; k++) {
+    var tz = resolveZone(topClocks[k].zone);
+    if (zoneSupported(tz) && defaultAdded.indexOf(tz) === -1) {
+      defaultAdded.push(tz);
+      container.appendChild(createClockCard(tz, topClocks[k].label, false));
+    }
+  }
+
+  // 3. Remaining Default Global Clocks
   for (var i = 0; i < DEFAULT_CLOCKS.length; i++) {
     var dc = DEFAULT_CLOCKS[i];
     var zone = resolveZone(dc.zone);
+    if (zone === "UTC" || zone === "Etc/GMT") continue;
     if (zoneSupported(zone) && defaultAdded.indexOf(zone) === -1) {
       defaultAdded.push(zone);
       container.appendChild(createClockCard(zone, dc.label, false));
@@ -1099,13 +1280,54 @@ function renderInfoModal(filterText) {
     nameDiv.className = "info-guide-name";
     nameDiv.textContent = ref.name;
 
-    var metaDiv = document.createElement("div");
-    metaDiv.className = "info-guide-meta";
-    metaDiv.innerHTML = '<strong>' + ref.country + '</strong> • ' + ref.cities.join(", ");
+    var countryDiv = document.createElement("div");
+    countryDiv.className = "info-guide-country";
+    countryDiv.textContent = ref.country;
+
+    var citiesWrap = document.createElement("div");
+    citiesWrap.className = "info-guide-cities";
+
+    for (var c = 0; c < ref.cities.length; c++) {
+      var cityName = ref.cities[c];
+      var cityBtn = document.createElement("button");
+      cityBtn.type = "button";
+      cityBtn.className = "city-pill";
+      cityBtn.textContent = cityName;
+      cityBtn.title = "Search " + cityName + " live clock";
+      (function(name) {
+        cityBtn.addEventListener("click", function() {
+          var overlay = document.getElementById("infoModalOverlay");
+          if (overlay) hideEl(overlay);
+          var searchInput = document.getElementById("searchInput");
+          if (searchInput) {
+            searchInput.value = name;
+            searchInput.focus();
+            var matches = searchTimezones(name);
+            if (matches.length > 0) {
+              var zone = matches[0].zone;
+              if (isDefaultClock(zone) || isUserClock(zone)) {
+                var existing = findClockCard(zone);
+                if (existing) {
+                  existing.classList.add("highlight");
+                  existing.scrollIntoView({ behavior: "smooth", block: "center" });
+                  setTimeout(function() { existing.classList.remove("highlight"); }, 1500);
+                }
+              } else {
+                if (addUserClock(zone, matches[0].label)) {
+                  renderClocks();
+                }
+              }
+            }
+          }
+        });
+      })(cityName);
+      citiesWrap.appendChild(cityBtn);
+    }
 
     card.appendChild(topRow);
     card.appendChild(nameDiv);
-    card.appendChild(metaDiv);
+    card.appendChild(countryDiv);
+    card.appendChild(citiesWrap);
     grid.appendChild(card);
   }
 
