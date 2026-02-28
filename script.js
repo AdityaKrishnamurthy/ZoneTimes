@@ -6,182 +6,208 @@ const TZ_REFERENCE = [
     name: "Coordinated Universal Time / Greenwich Mean Time",
     offset: "UTC+0:00",
     country: "Global / United Kingdom",
-    cities: ["London", "Greenwich", "Reykjavik", "Dublin", "Lisbon", "Accra", "Dakar"]
+    cities: ["London", "Greenwich", "Reykjavik", "Dublin", "Lisbon", "Accra", "Dakar"],
+    zone: "UTC"
   },
   {
     abbr: "IST",
     name: "Indian Standard Time",
     offset: "UTC+5:30",
     country: "India",
-    cities: ["Kolkata", "New Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Surat", "Lucknow", "Chandigarh"]
+    cities: ["Kolkata", "New Delhi", "Mumbai", "Bengaluru", "Chennai", "Hyderabad", "Ahmedabad", "Pune", "Jaipur", "Surat", "Lucknow", "Chandigarh"],
+    zone: "Asia/Kolkata"
   },
   {
     abbr: "PST / PDT",
     name: "Pacific Time",
     offset: "UTC-8:00 / UTC-7:00",
     country: "United States, Canada & Mexico",
-    cities: ["Los Angeles", "San Francisco", "Seattle", "San Jose", "San Diego", "Vancouver", "Tijuana", "Las Vegas", "Portland", "Sacramento"]
+    cities: ["Los Angeles", "San Francisco", "Seattle", "San Jose", "San Diego", "Vancouver", "Tijuana", "Las Vegas", "Portland", "Sacramento"],
+    zone: "America/Los_Angeles"
   },
   {
     abbr: "EST / EDT",
     name: "Eastern Time",
     offset: "UTC-5:00 / UTC-4:00",
     country: "United States, Canada & Bahamas",
-    cities: ["New York", "Toronto", "Washington D.C.", "Boston", "Miami", "Atlanta", "Philadelphia", "Montreal", "Ottawa", "Detroit", "Cleveland", "Baltimore"]
+    cities: ["New York", "Toronto", "Washington D.C.", "Boston", "Miami", "Atlanta", "Philadelphia", "Montreal", "Ottawa", "Detroit", "Cleveland", "Baltimore"],
+    zone: "America/New_York"
   },
   {
     abbr: "CST / CDT",
     name: "Central Time (US & Canada)",
     offset: "UTC-6:00 / UTC-5:00",
     country: "United States, Canada & Mexico",
-    cities: ["Chicago", "Houston", "Dallas", "Austin", "San Antonio", "Mexico City", "Winnipeg", "Minneapolis", "New Orleans", "St. Louis"]
+    cities: ["Chicago", "Houston", "Dallas", "Austin", "San Antonio", "Mexico City", "Winnipeg", "Minneapolis", "New Orleans", "St. Louis"],
+    zone: "America/Chicago"
   },
   {
     abbr: "MST / MDT",
     name: "Mountain Time",
     offset: "UTC-7:00 / UTC-6:00",
     country: "United States, Canada & Mexico",
-    cities: ["Denver", "Phoenix", "Salt Lake City", "Calgary", "Edmonton", "Albuquerque", "El Paso", "Tucson"]
+    cities: ["Denver", "Phoenix", "Salt Lake City", "Calgary", "Edmonton", "Albuquerque", "El Paso", "Tucson"],
+    zone: "America/Denver"
   },
   {
     abbr: "AKST / AKDT",
     name: "Alaska Time",
     offset: "UTC-9:00 / UTC-8:00",
     country: "United States (Alaska)",
-    cities: ["Anchorage", "Fairbanks", "Juneau"]
+    cities: ["Anchorage", "Fairbanks", "Juneau"],
+    zone: "America/Anchorage"
   },
   {
     abbr: "HST",
     name: "Hawaii-Aleutian Time",
     offset: "UTC-10:00",
     country: "United States (Hawaii)",
-    cities: ["Honolulu", "Hilo", "Kailua"]
+    cities: ["Honolulu", "Hilo", "Kailua"],
+    zone: "Pacific/Honolulu"
   },
   {
     abbr: "JST",
     name: "Japan Standard Time",
     offset: "UTC+9:00",
     country: "Japan",
-    cities: ["Tokyo", "Osaka", "Yokohama", "Kyoto", "Nagoya", "Sapporo", "Fukuoka", "Kobe"]
+    cities: ["Tokyo", "Osaka", "Yokohama", "Kyoto", "Nagoya", "Sapporo", "Fukuoka", "Kobe"],
+    zone: "Asia/Tokyo"
   },
   {
     abbr: "CST (China)",
     name: "China Standard Time",
     offset: "UTC+8:00",
     country: "China",
-    cities: ["Beijing", "Shanghai", "Shenzhen", "Guangzhou", "Chengdu", "Wuhan", "Hangzhou", "Xi'an", "Tianjin", "Chongqing"]
+    cities: ["Beijing", "Shanghai", "Shenzhen", "Guangzhou", "Chengdu", "Wuhan", "Hangzhou", "Xi'an", "Tianjin", "Chongqing"],
+    zone: "Asia/Shanghai"
   },
   {
     abbr: "CET / CEST",
     name: "Central European Time",
     offset: "UTC+1:00 / UTC+2:00",
     country: "Germany, France, Italy, Spain, Netherlands & Switzerland",
-    cities: ["Berlin", "Paris", "Rome", "Madrid", "Amsterdam", "Zurich", "Vienna", "Brussels", "Munich", "Milan", "Frankfurt", "Barcelona", "Geneva"]
+    cities: ["Berlin", "Paris", "Rome", "Madrid", "Amsterdam", "Zurich", "Vienna", "Brussels", "Munich", "Milan", "Frankfurt", "Barcelona", "Geneva"],
+    zone: "Europe/Berlin"
   },
   {
     abbr: "AEST / AEDT",
     name: "Australian Eastern Time",
     offset: "UTC+10:00 / UTC+11:00",
     country: "Australia",
-    cities: ["Sydney", "Melbourne", "Brisbane", "Canberra", "Gold Coast", "Hobart"]
+    cities: ["Sydney", "Melbourne", "Brisbane", "Canberra", "Gold Coast", "Hobart"],
+    zone: "Australia/Sydney"
   },
   {
     abbr: "ACST / ACDT",
     name: "Australian Central Time",
     offset: "UTC+9:30 / UTC+10:30",
     country: "Australia",
-    cities: ["Adelaide", "Darwin", "Alice Springs"]
+    cities: ["Adelaide", "Darwin", "Alice Springs"],
+    zone: "Australia/Adelaide"
   },
   {
     abbr: "AWST",
     name: "Australian Western Time",
     offset: "UTC+8:00",
     country: "Australia",
-    cities: ["Perth", "Fremantle"]
+    cities: ["Perth", "Fremantle"],
+    zone: "Australia/Perth"
   },
   {
     abbr: "KST",
     name: "Korea Standard Time",
     offset: "UTC+9:00",
     country: "South Korea",
-    cities: ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon"]
+    cities: ["Seoul", "Busan", "Incheon", "Daegu", "Daejeon"],
+    zone: "Asia/Seoul"
   },
   {
     abbr: "SGT",
     name: "Singapore Time",
     offset: "UTC+8:00",
     country: "Singapore",
-    cities: ["Singapore", "Jurong", "Woodlands", "Tampines"]
+    cities: ["Singapore", "Jurong", "Woodlands", "Tampines"],
+    zone: "Asia/Singapore"
   },
   {
     abbr: "HKT",
     name: "Hong Kong Time",
     offset: "UTC+8:00",
     country: "Hong Kong",
-    cities: ["Hong Kong", "Kowloon", "Shatin", "Tuen Mun"]
+    cities: ["Hong Kong", "Kowloon", "Shatin", "Tuen Mun"],
+    zone: "Asia/Hong_Kong"
   },
   {
     abbr: "GST / AST",
     name: "Gulf & Arabian Standard Time",
     offset: "UTC+4:00 / UTC+3:00",
     country: "UAE, Saudi Arabia, Qatar & Kuwait",
-    cities: ["Dubai", "Abu Dhabi", "Riyadh", "Jeddah", "Doha", "Kuwait City", "Muscat"]
+    cities: ["Dubai", "Abu Dhabi", "Riyadh", "Jeddah", "Doha", "Kuwait City", "Muscat"],
+    zone: "Asia/Dubai"
   },
   {
     abbr: "BRT",
     name: "Brasília Time",
     offset: "UTC-3:00",
     country: "Brazil",
-    cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte"]
+    cities: ["São Paulo", "Rio de Janeiro", "Brasília", "Salvador", "Fortaleza", "Belo Horizonte"],
+    zone: "America/Sao_Paulo"
   },
   {
     abbr: "EET / EEST",
     name: "Eastern European Time",
     offset: "UTC+2:00 / UTC+3:00",
     country: "Egypt, Greece, Finland, Ukraine & Romania",
-    cities: ["Cairo", "Athens", "Helsinki", "Kyiv", "Bucharest", "Istanbul"]
+    cities: ["Cairo", "Athens", "Helsinki", "Kyiv", "Bucharest", "Istanbul"],
+    zone: "Africa/Cairo"
   },
   {
     abbr: "NZST / NZDT",
     name: "New Zealand Time",
     offset: "UTC+12:00 / UTC+13:00",
     country: "New Zealand",
-    cities: ["Auckland", "Wellington", "Christchurch", "Hamilton", "Dunedin"]
+    cities: ["Auckland", "Wellington", "Christchurch", "Hamilton", "Dunedin"],
+    zone: "Pacific/Auckland"
   },
   {
     abbr: "SAST",
     name: "South Africa Standard Time",
     offset: "UTC+2:00",
     country: "South Africa",
-    cities: ["Johannesburg", "Cape Town", "Durban", "Pretoria"]
+    cities: ["Johannesburg", "Cape Town", "Durban", "Pretoria"],
+    zone: "Africa/Johannesburg"
   },
   {
     abbr: "ART",
     name: "Argentina Time",
     offset: "UTC-3:00",
     country: "Argentina",
-    cities: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza"]
+    cities: ["Buenos Aires", "Córdoba", "Rosario", "Mendoza"],
+    zone: "America/Argentina/Buenos_Aires"
   },
   {
     abbr: "PKT",
     name: "Pakistan Standard Time",
     offset: "UTC+5:00",
     country: "Pakistan",
-    cities: ["Karachi", "Lahore", "Islamabad", "Rawalpindi"]
+    cities: ["Karachi", "Lahore", "Islamabad", "Rawalpindi"],
+    zone: "Asia/Karachi"
   },
   {
     abbr: "BST (Bangladesh)",
     name: "Bangladesh Standard Time",
     offset: "UTC+6:00",
     country: "Bangladesh",
-    cities: ["Dhaka", "Chittagong", "Khulna", "Sylhet"]
+    cities: ["Dhaka", "Chittagong", "Khulna", "Sylhet"],
+    zone: "Asia/Dhaka"
   },
   {
     abbr: "NPT",
     name: "Nepal Time",
     offset: "UTC+5:45",
     country: "Nepal",
-    cities: ["Kathmandu", "Pokhara", "Lalitpur"]
+    cities: ["Kathmandu", "Pokhara", "Lalitpur"],
+    zone: "Asia/Kathmandu"
   }
 ];
 
@@ -356,6 +382,12 @@ function buildSearchTerms(zone) {
 
 function getZoneLabel(zone) {
   var resolved = resolveZone(zone);
+  for (var r = 0; r < TZ_REFERENCE.length; r++) {
+    var ref = TZ_REFERENCE[r];
+    if (ref.zone && resolveZone(ref.zone) === resolved) {
+      return ref.abbr + " – " + ref.name;
+    }
+  }
   for (var i = 0; i < DEFAULT_CLOCKS.length; i++) {
     if (DEFAULT_CLOCKS[i].zone === zone || DEFAULT_CLOCKS[i].zone === resolved) {
       return DEFAULT_CLOCKS[i].label;
@@ -367,6 +399,24 @@ function getZoneLabel(zone) {
   var parts = zone.split("/");
   var city = parts[parts.length - 1].replace(/_/g, " ");
   return city;
+}
+
+function getDisplayLabelForInput(inputEl, zone) {
+  var val = (inputEl ? inputEl.value : "").trim();
+  var resolved = resolveZone(zone);
+  var refEntry = null;
+
+  for (var i = 0; i < TZ_REFERENCE.length; i++) {
+    if (TZ_REFERENCE[i].zone && resolveZone(TZ_REFERENCE[i].zone) === resolved) {
+      refEntry = TZ_REFERENCE[i];
+      break;
+    }
+  }
+
+  if (refEntry) {
+    return refEntry.abbr + " (" + refEntry.name + ")";
+  }
+  return val || getZoneLabel(zone);
 }
 
 var tzFamilyBoost = function(zone) {
@@ -1129,8 +1179,8 @@ function doConvert() {
   var fromDate = createDateForZone(parsedDate.day, parsedDate.month, parsedDate.year, parsedTime.hour, parsedTime.minute, fromZone);
   var toDate = new Date(fromDate.getTime());
 
-  var fromLabel = getZoneLabel(fromZone);
-  var toLabel = getZoneLabel(toZone);
+  var fromLabel = getDisplayLabelForInput(fromTz, fromZone);
+  var toLabel = getDisplayLabelForInput(toTz, toZone);
   var fromTimeStr = formatTime(fromDate, fromZone);
   var fromDateStr = formatDateDisplay(fromDate, fromZone);
   var fromOffset = getUTCOffset(fromDate, fromZone);
