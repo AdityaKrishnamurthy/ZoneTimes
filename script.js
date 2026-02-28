@@ -208,6 +208,38 @@ const TZ_REFERENCE = [
     country: "Nepal",
     cities: ["Kathmandu", "Pokhara", "Lalitpur"],
     zone: "Asia/Kathmandu"
+  },
+  {
+    abbr: "MSK",
+    name: "Moscow Standard Time",
+    offset: "UTC+3:00",
+    country: "Russia",
+    cities: ["Moscow", "Saint Petersburg", "Kazan", "Nizhny Novgorod", "Sochi", "Rostov-on-Don", "Samara"],
+    zone: "Europe/Moscow"
+  },
+  {
+    abbr: "YEKT",
+    name: "Yekaterinburg Time",
+    offset: "UTC+5:00",
+    country: "Russia",
+    cities: ["Yekaterinburg", "Chelyabinsk", "Ufa", "Tyumen", "Perm"],
+    zone: "Asia/Yekaterinburg"
+  },
+  {
+    abbr: "KRAT",
+    name: "Krasnoyarsk Time",
+    offset: "UTC+7:00",
+    country: "Russia",
+    cities: ["Novosibirsk", "Krasnoyarsk", "Barnaul", "Tomsk"],
+    zone: "Asia/Krasnoyarsk"
+  },
+  {
+    abbr: "VLAT",
+    name: "Vladivostok Time",
+    offset: "UTC+10:00",
+    country: "Russia",
+    cities: ["Vladivostok", "Khabarovsk"],
+    zone: "Asia/Vladivostok"
   }
 ];
 
@@ -617,7 +649,11 @@ function getAbbreviationForZone(date, zone) {
     "Etc/UTC": "UTC",
     "Etc/GMT": "GMT",
     "GMT": "GMT",
-    "Asia/Shanghai": "CST"
+    "Asia/Shanghai": "CST",
+    "Europe/Moscow": "MSK",
+    "Asia/Yekaterinburg": "YEKT",
+    "Asia/Krasnoyarsk": "KRAT",
+    "Asia/Vladivostok": "VLAT"
   };
 
   try {
@@ -959,27 +995,51 @@ function buildThemeSwitcherPanel() {
 
 function parseDateDMY(value) {
   if (!value) return { valid: false, iso: null, day: null, month: null, year: null };
-  var match = value.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
-  if (!match) {
-    var alt = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-    if (alt) {
+  var str = value.trim().replace(/[/.\s]/g, "-");
+
+  var match = str.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+  if (match) {
+    var d = parseInt(match[1], 10);
+    var m = parseInt(match[2], 10);
+    var y = parseInt(match[3], 10);
+    if (m >= 1 && m <= 12 && d >= 1 && d <= 31 && y >= 1900 && y <= 2100) {
       return {
         valid: true,
-        iso: alt[1] + "-" + alt[2].padStart(2, "0") + "-" + alt[3].padStart(2, "0"),
-        day: parseInt(alt[3], 10),
-        month: parseInt(alt[2], 10),
-        year: parseInt(alt[1], 10)
+        iso: y + "-" + String(m).padStart(2, "0") + "-" + String(d).padStart(2, "0"),
+        day: d, month: m, year: y
       };
     }
-    return { valid: false, iso: null, day: null, month: null, year: null };
   }
-  return {
-    valid: true,
-    iso: match[3] + "-" + match[2].padStart(2, "0") + "-" + match[1].padStart(2, "0"),
-    day: parseInt(match[1], 10),
-    month: parseInt(match[2], 10),
-    year: parseInt(match[3], 10)
-  };
+
+  var alt = str.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (alt) {
+    var dAlt = parseInt(alt[3], 10);
+    var mAlt = parseInt(alt[2], 10);
+    var yAlt = parseInt(alt[1], 10);
+    if (mAlt >= 1 && mAlt <= 12 && dAlt >= 1 && dAlt <= 31 && yAlt >= 1900 && yAlt <= 2100) {
+      return {
+        valid: true,
+        iso: yAlt + "-" + String(mAlt).padStart(2, "0") + "-" + String(dAlt).padStart(2, "0"),
+        day: dAlt, month: mAlt, year: yAlt
+      };
+    }
+  }
+
+  var rawDigits = value.replace(/\D/g, "");
+  if (rawDigits.length === 8) {
+    var dRaw = parseInt(rawDigits.slice(0, 2), 10);
+    var mRaw = parseInt(rawDigits.slice(2, 4), 10);
+    var yRaw = parseInt(rawDigits.slice(4, 8), 10);
+    if (mRaw >= 1 && mRaw <= 12 && dRaw >= 1 && dRaw <= 31 && yRaw >= 1900 && yRaw <= 2100) {
+      return {
+        valid: true,
+        iso: yRaw + "-" + String(mRaw).padStart(2, "0") + "-" + String(dRaw).padStart(2, "0"),
+        day: dRaw, month: mRaw, year: yRaw
+      };
+    }
+  }
+
+  return { valid: false, iso: null, day: null, month: null, year: null };
 }
 
 function createDateForZone(day, month, year, hour, minute, zone) {
@@ -1113,7 +1173,17 @@ const ABBR_MAP = {
   "UTC": "UTC",
   "GMT": "Etc/GMT",
   "CST CHINA": "Asia/Shanghai",
-  "CST (CHINA)": "Asia/Shanghai"
+  "CST (CHINA)": "Asia/Shanghai",
+  "MSK": "Europe/Moscow",
+  "SAMT": "Europe/Samara",
+  "YEKT": "Asia/Yekaterinburg",
+  "OMST": "Asia/Omsk",
+  "KRAT": "Asia/Krasnoyarsk",
+  "IRKT": "Asia/Irkutsk",
+  "YAKT": "Asia/Yakutsk",
+  "VLAT": "Asia/Vladivostok",
+  "MAGT": "Asia/Magadan",
+  "PETT": "Asia/Kamchatka"
 };
 
 function getOrResolveZone(inputEl) {
@@ -1609,12 +1679,11 @@ function init() {
 
   var convDate = document.getElementById("convDate");
   if (convDate) {
-    convDate.addEventListener("input", function() {
-      var digits = convDate.value.replace(/\D/g, "").slice(0, 8);
-      var out = digits;
-      if (digits.length > 4) out = digits.slice(0, 2) + "-" + digits.slice(2, 4) + "-" + digits.slice(4);
-      else if (digits.length > 2) out = digits.slice(0, 2) + "-" + digits.slice(2);
-      convDate.value = out;
+    convDate.addEventListener("blur", function() {
+      var parsed = parseDateDMY(convDate.value);
+      if (parsed.valid) {
+        convDate.value = String(parsed.day).padStart(2, "0") + "-" + String(parsed.month).padStart(2, "0") + "-" + parsed.year;
+      }
     });
   }
 
