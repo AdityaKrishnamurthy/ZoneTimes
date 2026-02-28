@@ -531,6 +531,65 @@ function getUTCOffset(date, zone) {
   return "";
 }
 
+function getAbbreviationForZone(date, zone) {
+  var resolved = resolveZone(zone);
+  var knownMap = {
+    "Asia/Kolkata": "IST",
+    "Asia/Calcutta": "IST",
+    "Asia/Tokyo": "JST",
+    "America/Los_Angeles": "PST/PDT",
+    "America/New_York": "EST/EDT",
+    "America/Chicago": "CST/CDT",
+    "America/Denver": "MST/MDT",
+    "America/Anchorage": "AKST/AKDT",
+    "Pacific/Honolulu": "HST",
+    "Europe/Berlin": "CET/CEST",
+    "Europe/Paris": "CET/CEST",
+    "Europe/London": "GMT/BST",
+    "Europe/Amsterdam": "CET/CEST",
+    "Europe/Zurich": "CET/CEST",
+    "Australia/Sydney": "AEST/AEDT",
+    "Australia/Adelaide": "ACST/ACDT",
+    "Australia/Perth": "AWST",
+    "Asia/Seoul": "KST",
+    "Asia/Singapore": "SGT",
+    "Asia/Hong_Kong": "HKT",
+    "Asia/Dubai": "GST",
+    "America/Sao_Paulo": "BRT",
+    "Africa/Cairo": "EET/EEST",
+    "Pacific/Auckland": "NZST/NZDT",
+    "Africa/Johannesburg": "SAST",
+    "America/Argentina/Buenos_Aires": "ART",
+    "Asia/Karachi": "PKT",
+    "Asia/Dhaka": "BST",
+    "Asia/Kathmandu": "NPT",
+    "UTC": "UTC",
+    "Etc/UTC": "UTC",
+    "Etc/GMT": "GMT",
+    "GMT": "GMT",
+    "Asia/Shanghai": "CST"
+  };
+
+  try {
+    var parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: resolved, timeZoneName: "short"
+    }).formatToParts(date);
+    for (var i = 0; i < parts.length; i++) {
+      if (parts[i].type === "timeZoneName") {
+        var val = parts[i].value || "";
+        if (val && val.indexOf("GMT") !== 0 && val.indexOf("UTC") !== 0 && val.indexOf("+") === -1 && val.indexOf("-") === -1) {
+          return val;
+        }
+      }
+    }
+  } catch (e) {}
+
+  if (knownMap[resolved]) return knownMap[resolved];
+  if (knownMap[zone]) return knownMap[zone];
+
+  return "";
+}
+
 function updateClockDisplays() {
   var now = new Date();
   var cards = document.querySelectorAll(".clock");
@@ -541,9 +600,21 @@ function updateClockDisplays() {
     var timeEl = card.querySelector(".time-display");
     var dateEl = card.querySelector(".zone-date");
     var offsetEl = card.querySelector(".zone-offset");
+    var abbrEl = card.querySelector(".zone-abbr");
+
     if (timeEl) timeEl.textContent = formatTime(now, zone);
     if (dateEl) dateEl.textContent = formatDateDisplay(now, zone);
     if (offsetEl) offsetEl.textContent = getUTCOffset(now, zone);
+
+    var abbrText = getAbbreviationForZone(now, zone);
+    if (abbrEl) {
+      if (abbrText) {
+        abbrEl.textContent = abbrText;
+        abbrEl.style.display = "inline-block";
+      } else {
+        abbrEl.style.display = "none";
+      }
+    }
   }
 }
 
@@ -620,14 +691,24 @@ function createClockCard(zone, label, isUser) {
   dateEl.className = "zone-date";
   dateEl.textContent = "--";
 
-  var offsetDiv = document.createElement("div");
-  offsetDiv.className = "zone-offset";
-  offsetDiv.textContent = "";
+  var metaDiv = document.createElement("div");
+  metaDiv.className = "zone-meta";
+
+  var abbrSpan = document.createElement("span");
+  abbrSpan.className = "zone-abbr";
+  abbrSpan.textContent = "";
+
+  var offsetSpan = document.createElement("span");
+  offsetSpan.className = "zone-offset";
+  offsetSpan.textContent = "";
+
+  metaDiv.appendChild(abbrSpan);
+  metaDiv.appendChild(offsetSpan);
 
   card.appendChild(timeEl);
   card.appendChild(labelDiv);
   card.appendChild(dateEl);
-  card.appendChild(offsetDiv);
+  card.appendChild(metaDiv);
 
   return card;
 }
